@@ -1,0 +1,29 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Properties>
+        <Property name="applicationName">${spring:spring.application.name}</Property>
+    </Properties>
+
+    <springProfile name="dev">
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n - ${applicationName}</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.springboot.postgres" level="debug">
+            <appender-ref ref="console" />
+        </logger>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="file" class="ch.qos.logback.core.FileAppender">
+            <file>app.log</file>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.springboot.postgres" level="info">
+            <appender-ref ref="file" />
+        </logger>
+    </springProfile>
+
+</configuration>
